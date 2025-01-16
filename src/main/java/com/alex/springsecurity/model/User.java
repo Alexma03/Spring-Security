@@ -2,14 +2,25 @@ package com.alex.springsecurity.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "USUARIOS")
+public class User implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String username;
+
+    private String nombre;
+
+    private String apellidos;
 
     @Column(nullable = false, unique = true, length = 45)
     private String email;
@@ -17,18 +28,57 @@ public class User {
     @Column(nullable = false, length = 64)
     private String password;
 
-    @Column(name = "first_name", nullable = false, length = 20)
-    private String firstName;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA_REGISTRO")
+    private Date fechaRegistro;
 
-    @Column(name = "last_name", nullable = false, length = 20)
-    private String lastName;
+    private String direccion;
 
-    public Long getId() {
-        return id;
+    //bi-directional many-to-many association to Perfile
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_perfiles"
+            , joinColumns = {
+            @JoinColumn(name = "USERNAME")
+    }
+            , inverseJoinColumns = {
+            @JoinColumn(name = "ID_PERFIL")
+    }
+    )
+    private List<Perfil> perfiles;
+
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    private int enabled;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getEmail() {
@@ -47,19 +97,19 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public String getLastName() {
-        return lastName;
+    public int getEnabled() {
+        return enabled;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
     }
 }

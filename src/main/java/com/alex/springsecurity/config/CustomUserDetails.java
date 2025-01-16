@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-    private User user;
+    private final User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
@@ -47,10 +47,6 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String getFullName() {
-        return user.getFirstName() + " " + user.getLastName();
     }
 
 }
