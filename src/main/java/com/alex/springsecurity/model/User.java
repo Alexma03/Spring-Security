@@ -112,4 +112,12 @@ public class User implements Serializable {
     public void setEnabled(int enabled) {
         this.enabled = enabled;
     }
+
+    public List<Perfil> getPerfiles() {
+        return perfiles;
+    }
+
+    public void setPerfiles(List<Perfil> perfiles) {
+        this.perfiles = perfiles;
+    }
 }
