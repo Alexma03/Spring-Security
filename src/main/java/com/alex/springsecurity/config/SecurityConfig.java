@@ -61,15 +61,13 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/users").authenticated()
-                                .anyRequest().permitAll()
+                        auth.requestMatchers("/login", "/register").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .formLogin(login ->
-                        login.usernameParameter("email")
-                                .defaultSuccessUrl("/users")
-                                .permitAll()
+                        login.defaultSuccessUrl("/")
                 )
-                .logout(logout -> logout.logoutSuccessUrl("/").permitAll()
+                .logout(logout -> logout.logoutSuccessUrl("/login").permitAll()
                 );
 
         return http.build();
