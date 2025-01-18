@@ -79,7 +79,8 @@ public class EventoController {
     public String mostrarFormularioEdicion(@PathVariable int id, Model model) {
         Evento evento = eventoService.findById(id);
         model.addAttribute("evento", evento);
-        return "formEvento";
+        model.addAttribute("tipos", tipoRepo.findAll());
+        return "eventos/editarEventos";
     }
 
     @PostMapping("/editar/{id}")
