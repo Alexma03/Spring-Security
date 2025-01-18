@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}">
+    <meta charset="UTF-8">
+    <title>Eventos Destacados</title>
+</head>
+<body>
+<nav th:replace="~{layout :: navbar}"></nav>
+
+<section class="container text-center">
+    <div class="my-4">
+        <h1 class="mb-4">Eventos Destacados</h1>
+    </div>
+
+    <table class="table">
+        <thead class="table-light">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Aforo Máximo</th>
+            <th scope="col">Fecha de Inicio</th>
+            <th scope="col">Fecha de Fin</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="evento : ${eventos}">
+            <td th:text="${evento.nombre}">Nombre</td>
+            <td th:text="${evento.aforoMaximo}">Aforo Máximo</td>
+            <td th:text="${#dates.format(evento.fechaInicio, 'yyyy-MM-dd')}">Fecha de Inicio</td>
+            <td th:text="${#dates.format(evento.fechaFin, 'yyyy-MM-dd')}">Fecha de Fin</td>
+            <td th:text="${evento.precio}">Precio</td>
+            <td th:text="${evento.estado}">Estado</td>
+            <td>
+                <a th:href="@{/eventos/editar/{id}(id=${evento.idEvento})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/eventos/cancelar/{id}(id=${evento.idEvento})}" class="btn btn-danger">Cancelar</a>
+                <a th:href="@{/eventos/eliminar/{id}(id=${evento.idEvento})}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<footer th:replace="~{layout :: footer}"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>

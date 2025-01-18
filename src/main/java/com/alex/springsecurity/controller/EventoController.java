@@ -41,21 +41,21 @@ public class EventoController {
     public String listarEventosDestacados(Model model) {
         List<Evento> eventos = eventoService.findByDestacado("S");
         model.addAttribute("eventos", eventos);
-        return "index";
+        return "eventos/eventosDestacados";
     }
 
     @GetMapping("/cancelados")
     public String listarEventosCancelados(Model model) {
         List<Evento> eventos = eventoService.findByEstado("Cancelado");
         model.addAttribute("eventos", eventos);
-        return "index";
+        return "eventos/eventosCancelados";
     }
 
     @GetMapping("/terminados")
     public String listarEventosTerminados(Model model) {
         List<Evento> eventos = eventoService.findByEstado("Terminado");
         model.addAttribute("eventos", eventos);
-        return "index";
+        return "eventos/eventosTerminados";
     }
 
     @GetMapping("/alta")

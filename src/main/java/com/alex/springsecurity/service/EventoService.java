@@ -5,6 +5,7 @@ import com.alex.springsecurity.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,11 +15,17 @@ public class EventoService {
     private EventoRepository eventoRepository;
 
     public List<Evento> findAll() {
-        return eventoRepository.findAll();
+        List<Evento> eventos = eventoRepository.findAll();
+        actualizarEventosTerminados(eventos);
+        return eventos;
     }
 
     public Evento findById(int id) {
-        return eventoRepository.findById(id).orElse(null);
+        Evento evento = eventoRepository.findById(id).orElse(null);
+        if (evento != null) {
+            actualizarEventoTerminado(evento);
+        }
+        return evento;
     }
 
     public void save(Evento evento) {
@@ -30,10 +37,32 @@ public class EventoService {
     }
 
     public List<Evento> findByEstado(String estado) {
-        return eventoRepository.findByEstado(estado);
+        List<Evento> eventos = eventoRepository.findByEstado(estado);
+        actualizarEventosTerminados(eventos);
+        return eventos;
     }
 
     public List<Evento> findByDestacado(String destacado) {
-        return eventoRepository.findByDestacado(destacado);
+        List<Evento> eventos = eventoRepository.findByDestacado(destacado);
+        actualizarEventosTerminados(eventos);
+        return eventos;
+    }
+
+    private void actualizarEventosTerminados(List<Evento> eventos) {
+        Date hoy = new Date();
+        for (Evento evento : eventos) {
+            if (evento.getFechaFin().before(hoy) && !"Terminado".equals(evento.getEstado())) {
+                evento.setEstado("Terminado");
+                eventoRepository.save(evento);
+            }
+        }
+    }
+
+    private void actualizarEventoTerminado(Evento evento) {
+        Date hoy = new Date();
+        if (evento.getFechaFin().before(hoy) && !"Terminado".equals(evento.getEstado())) {
+            evento.setEstado("Terminado");
+            eventoRepository.save(evento);
+        }
     }
 }
