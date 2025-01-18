@@ -1,6 +1,7 @@
 package com.alex.springsecurity.controller;
 
 import com.alex.springsecurity.model.Evento;
+import com.alex.springsecurity.repository.TipoRepository;
 import com.alex.springsecurity.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class EventoController {
 
     @Autowired
     private EventoService eventoService;
+
+    @Autowired
+    private TipoRepository tipoRepo;
 
     @GetMapping("")
     public String listarEventos(Model model) {
@@ -54,9 +58,10 @@ public class EventoController {
         return "index";
     }
 
-    @GetMapping("/alta_evento")
-    public String showAltaEventoForm(Model model) {
+    @GetMapping("/alta")
+    public String mostrarFormularioAlta(Model model) {
         model.addAttribute("evento", new Evento());
+        model.addAttribute("tipos", tipoRepo.findAll());
         return "eventos/altaEventos";
     }
 
@@ -67,7 +72,7 @@ public class EventoController {
             evento.setDestacado("N");
         }
         eventoService.save(evento);
-        return "redirect:/eventos";
+        return "redirect:/";
     }
 
     @GetMapping("/editar/{id}")

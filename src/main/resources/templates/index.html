@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout :: head}">
+    <meta charset="UTF-8">
     <title>Gestor de Eventos</title>
 </head>
 <body>
@@ -9,8 +10,8 @@
 
 <section class="container text-center">
     <div class="my-4">
-        <h1 class="mb-4">Listado de eventos activos</h1>
-        <a type="button" class="btn btn-primary" th:href="@{/eventos/alta_evento}">
+        <h1 class="mb-4">Listado de eventos</h1>
+        <a type="button" class="btn btn-primary" th:href="@{/eventos/alta}">
             Nuevo evento
         </a>
     </div>
@@ -19,29 +20,28 @@
         <thead class="table-light">
         <tr>
             <th scope="col">Nombre</th>
-            <th scope="col">Aforo</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Precio/Persona</th>
+            <th scope="col">Aforo Máximo</th>
+            <th scope="col">Fecha de Inicio</th>
+            <th scope="col">Fecha de Fin</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Destacado</th>
             <th scope="col">Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
+        <tr th:each="evento : ${eventos}">
+            <td th:text="${evento.nombre}">Nombre</td>
+            <td th:text="${evento.aforoMaximo}">Aforo Máximo</td>
+            <td th:text="${#dates.format(evento.fechaInicio, 'yyyy-MM-dd')}">Fecha de Inicio</td>
+            <td th:text="${#dates.format(evento.fechaFin, 'yyyy-MM-dd')}">Fecha de Fin</td>
+            <td th:text="${evento.precio}">Precio</td>
+            <td th:text="${evento.estado}">Estado</td>
+            <td th:text="${evento.destacado}">Destacado</td>
+            <td>
+                <a th:href="@{/eventos/editar/{id}(id=${evento.idEvento})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/eventos/cancelar/{id}(id=${evento.idEvento})}" class="btn btn-danger">Cancelar</a>
+            </td>
         </tr>
         </tbody>
     </table>

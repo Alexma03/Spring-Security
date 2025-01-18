@@ -1,6 +1,7 @@
 package com.alex.springsecurity.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -37,10 +38,12 @@ public class Evento implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_FIN")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFin;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_INICIO")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaInicio;
 
     @Column(name = "MINIMO_ASISTENCIA")
