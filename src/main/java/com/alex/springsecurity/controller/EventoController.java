@@ -54,10 +54,10 @@ public class EventoController {
         return "index";
     }
 
-    @GetMapping("/alta")
-    public String mostrarFormularioAlta(Model model) {
+    @GetMapping("/alta_evento")
+    public String showAltaEventoForm(Model model) {
         model.addAttribute("evento", new Evento());
-        return "formEvento";
+        return "eventos/altaEventos";
     }
 
     @PostMapping("/alta")
