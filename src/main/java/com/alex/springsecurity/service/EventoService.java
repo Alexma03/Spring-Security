@@ -25,6 +25,10 @@ public class EventoService {
         eventoRepository.save(evento);
     }
 
+    public void deleteById(int id) {
+        eventoRepository.deleteById(id);
+    }
+
     public List<Evento> findByEstado(String estado) {
         return eventoRepository.findByEstado(estado);
     }

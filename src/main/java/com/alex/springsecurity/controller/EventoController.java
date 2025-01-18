@@ -72,7 +72,7 @@ public class EventoController {
             evento.setDestacado("N");
         }
         eventoService.save(evento);
-        return "redirect:/";
+        return "redirect:/eventos";
     }
 
     @GetMapping("/editar/{id}")
@@ -103,5 +103,11 @@ public class EventoController {
         Evento evento = eventoService.findById(id);
         model.addAttribute("evento", evento);
         return "detalleEvento";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarEvento(@PathVariable int id) {
+        eventoService.deleteById(id);
+        return "redirect:/eventos";
     }
 }
