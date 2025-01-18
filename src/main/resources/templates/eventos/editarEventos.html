@@ -85,9 +85,19 @@
                 </div>
             </div>
             <div class="form-group row my-3">
+                <label class="col-4 col-form-label">Estado</label>
+                <div class="col-8">
+                    <select th:field="*{estado}" class="form-control" required id="estadoSelect">
+                        <option value="ACTIVO">ACTIVO</option>
+                        <option value="CANCELADO">CANCELADO</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row my-3">
                 <label class="col-4 col-form-label">Destacado</label>
                 <div class="col-8">
-                    <input type="checkbox" th:field="*{destacado}" class="form-check-input" value="S"/>
+                    <input type="checkbox" th:field="*{destacado}" class="form-check-input" value="S"
+                           id="destacadoCheckbox"/>
                 </div>
             </div>
             <div class="my-3">
@@ -96,6 +106,28 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.getElementById('estadoSelect').addEventListener('change', function () {
+        var destacadoCheckbox = document.getElementById('destacadoCheckbox');
+        if (this.value === 'CANCELADO') {
+            destacadoCheckbox.checked = false;
+            destacadoCheckbox.disabled = true;
+        } else {
+            destacadoCheckbox.disabled = false;
+        }
+    });
+
+    // Initial check on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        var estadoSelect = document.getElementById('estadoSelect');
+        var destacadoCheckbox = document.getElementById('destacadoCheckbox');
+        if (estadoSelect.value === 'CANCELADO') {
+            destacadoCheckbox.checked = false;
+            destacadoCheckbox.disabled = true;
+        }
+    });
+</script>
 
 <footer th:replace="~{layout :: footer}"></footer>
 

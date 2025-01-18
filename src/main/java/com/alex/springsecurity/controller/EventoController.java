@@ -32,7 +32,7 @@ public class EventoController {
 
     @GetMapping("/activos")
     public String listarEventosActivos(Model model) {
-        List<Evento> eventos = eventoService.findByEstado("Activo");
+        List<Evento> eventos = eventoService.findByEstado("ACTIVO");
         model.addAttribute("eventos", eventos);
         return "index";
     }
@@ -46,14 +46,14 @@ public class EventoController {
 
     @GetMapping("/cancelados")
     public String listarEventosCancelados(Model model) {
-        List<Evento> eventos = eventoService.findByEstado("Cancelado");
+        List<Evento> eventos = eventoService.findByEstado("CANCELADO");
         model.addAttribute("eventos", eventos);
         return "eventos/eventosCancelados";
     }
 
     @GetMapping("/terminados")
     public String listarEventosTerminados(Model model) {
-        List<Evento> eventos = eventoService.findByEstado("Terminado");
+        List<Evento> eventos = eventoService.findByEstado("TERMINADO");
         model.addAttribute("eventos", eventos);
         return "eventos/eventosTerminados";
     }
@@ -68,9 +68,6 @@ public class EventoController {
     @PostMapping("/alta")
     public String guardarEvento(Evento evento) {
         evento.setEstado("ACTIVO");
-        if (evento.getDestacado() == null) {
-            evento.setDestacado("N");
-        }
         eventoService.save(evento);
         return "redirect:/eventos";
     }
@@ -93,7 +90,19 @@ public class EventoController {
     @GetMapping("/cancelar/{id}")
     public String cancelarEvento(@PathVariable int id) {
         Evento evento = eventoService.findById(id);
-        evento.setEstado("Cancelado");
+        evento.setEstado("CANCELADO");
+        if ("S".equals(evento.getDestacado())) {
+            evento.setDestacado("");
+        }
+        eventoService.save(evento);
+        return "redirect:/eventos";
+    }
+
+    // Activar evento
+    @GetMapping("/activar/{id}")
+    public String activarEvento(@PathVariable int id) {
+        Evento evento = eventoService.findById(id);
+        evento.setEstado("ACTIVO");
         eventoService.save(evento);
         return "redirect:/eventos";
     }
@@ -102,7 +111,7 @@ public class EventoController {
     public String mostrarDetalleEvento(@PathVariable int id, Model model) {
         Evento evento = eventoService.findById(id);
         model.addAttribute("evento", evento);
-        return "detalleEvento";
+        return "eventos/detalleEvento";
     }
 
     @GetMapping("/eliminar/{id}")

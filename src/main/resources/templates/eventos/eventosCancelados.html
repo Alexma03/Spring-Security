@@ -33,8 +33,10 @@
             <td th:text="${evento.precio}">Precio</td>
             <td th:text="${evento.estado}">Estado</td>
             <td>
-                <a th:href="@{/eventos/editar/{id}(id=${evento.idEvento})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/eventos/editar/{id}(id=${evento.idEvento})}" class="btn btn-secondary">Editar</a>
+                <a th:href="@{/eventos/activar/{id}(id=${evento.idEvento})}" class="btn btn-outline-success">Activar</a>
                 <a th:href="@{/eventos/eliminar/{id}(id=${evento.idEvento})}" class="btn btn-danger">Eliminar</a>
+                <a th:href="@{/eventos/detalle/{id}(id=${evento.idEvento})}" class="btn btn-info">Ver Detalle</a>
             </td>
         </tr>
         </tbody>

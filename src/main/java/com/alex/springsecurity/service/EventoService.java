@@ -51,8 +51,8 @@ public class EventoService {
     private void actualizarEventosTerminados(List<Evento> eventos) {
         Date hoy = new Date();
         for (Evento evento : eventos) {
-            if (evento.getFechaFin().before(hoy) && !"Terminado".equals(evento.getEstado())) {
-                evento.setEstado("Terminado");
+            if (evento.getFechaFin().before(hoy) && !"TERMINADO".equals(evento.getEstado())) {
+                evento.setEstado("TERMINADO");
                 eventoRepository.save(evento);
             }
         }
@@ -60,8 +60,8 @@ public class EventoService {
 
     private void actualizarEventoTerminado(Evento evento) {
         Date hoy = new Date();
-        if (evento.getFechaFin().before(hoy) && !"Terminado".equals(evento.getEstado())) {
-            evento.setEstado("Terminado");
+        if (evento.getFechaFin().before(hoy) && !"TERMINADO".equals(evento.getEstado())) {
+            evento.setEstado("TERMINADO");
             eventoRepository.save(evento);
         }
     }
