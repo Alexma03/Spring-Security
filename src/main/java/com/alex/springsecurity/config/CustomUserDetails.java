@@ -1,6 +1,6 @@
 package com.alex.springsecurity.config;
 
-import com.alex.springsecurity.model.User;
+import com.alex.springsecurity.model.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,10 +8,10 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final User user;
+    private final Usuario usuario;
 
-    public CustomUserDetails(User user) {
-        this.user = user;
+    public CustomUserDetails(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -21,12 +21,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return usuario.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return usuario.getUsername();
     }
 
     @Override

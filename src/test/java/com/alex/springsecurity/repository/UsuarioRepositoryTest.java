@@ -1,7 +1,7 @@
 package com.alex.springsecurity.repository;
 
 import com.alex.springsecurity.model.Perfil;
-import com.alex.springsecurity.model.User;
+import com.alex.springsecurity.model.Usuario;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
-public class UserRepositoryTest {
+public class UsuarioRepositoryTest {
 
     @Autowired
     private TestEntityManager testEntityManager;
@@ -33,14 +33,14 @@ public class UserRepositoryTest {
     @Test
     public void testCreateAdminUser() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User user = new User();
-        user.setEmail("admin@mail.com");
-        user.setPassword(encoder.encode("admin"));
-        user.setApellidos("root");
-        user.setNombre("Admin");
-        user.setUsername("admin");
-        user.setDireccion("");
-        user.setEnabled(1);
+        Usuario usuario = new Usuario();
+        usuario.setEmail("admin@mail.com");
+        usuario.setPassword(encoder.encode("admin"));
+        usuario.setApellidos("root");
+        usuario.setNombre("Admin");
+        usuario.setUsername("admin");
+        usuario.setDireccion("");
+        usuario.setEnabled(1);
 
         // Buscar el perfil de admin existente o crear uno nuevo
         Perfil adminPerfil = entityManager
@@ -56,27 +56,27 @@ public class UserRepositoryTest {
                 });
 
         // Asignar el perfil de admin al usuario
-        user.setPerfiles(List.of(adminPerfil));
+        usuario.setPerfiles(List.of(adminPerfil));
 
-        repo.save(user);
+        repo.save(usuario);
 
-        User existUser = testEntityManager.find(User.class, user.getUsername());
+        Usuario existUsuario = testEntityManager.find(Usuario.class, usuario.getUsername());
 
-        assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
-        assertThat(existUser.getPerfiles()).contains(adminPerfil);
+        assertThat(usuario.getEmail()).isEqualTo(existUsuario.getEmail());
+        assertThat(existUsuario.getPerfiles()).contains(adminPerfil);
     }
 
     @Test
     public void testCreateClientUser() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User user = new User();
-        user.setEmail("client@mail.com");
-        user.setPassword(encoder.encode("client"));
-        user.setApellidos("Doe");
-        user.setNombre("Client");
-        user.setUsername("client");
-        user.setDireccion("Client Street 123");
-        user.setEnabled(1);
+        Usuario usuario = new Usuario();
+        usuario.setEmail("client@mail.com");
+        usuario.setPassword(encoder.encode("client"));
+        usuario.setApellidos("Doe");
+        usuario.setNombre("Client");
+        usuario.setUsername("client");
+        usuario.setDireccion("Client Street 123");
+        usuario.setEnabled(1);
 
         // Buscar el perfil de cliente existente o crear uno nuevo
         Perfil clientPerfil = entityManager
@@ -92,13 +92,13 @@ public class UserRepositoryTest {
                 });
 
         // Asignar el perfil de cliente al usuario
-        user.setPerfiles(List.of(clientPerfil));
+        usuario.setPerfiles(List.of(clientPerfil));
 
-        repo.save(user);
+        repo.save(usuario);
 
-        User existUser = testEntityManager.find(User.class, user.getUsername());
+        Usuario existUsuario = testEntityManager.find(Usuario.class, usuario.getUsername());
 
-        assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
-        assertThat(existUser.getPerfiles()).contains(clientPerfil);
+        assertThat(usuario.getEmail()).isEqualTo(existUsuario.getEmail());
+        assertThat(existUsuario.getPerfiles()).contains(clientPerfil);
     }
 }

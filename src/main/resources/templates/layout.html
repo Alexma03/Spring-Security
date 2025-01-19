@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Usuarios</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/usuarios}">Usuarios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/perfiles}">Perfiles</a>
@@ -27,7 +27,7 @@
                     <a class="nav-link" th:href="@{/tipos}">Tipo de Evento</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Eventos
                     </a>
@@ -47,16 +47,13 @@
                         <li><a class="dropdown-item" th:href="@{/eventos/activos}">Activos</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/login}">Inicio Sesión</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/register}">Registro</a>
+                    <a class="nav-link" th:href="@{/usuarios/registro}">Registro</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>

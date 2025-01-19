@@ -2,7 +2,7 @@ package com.alex.springsecurity.service;
 
 import com.alex.springsecurity.config.CustomUserDetails;
 import com.alex.springsecurity.model.Perfil;
-import com.alex.springsecurity.model.User;
+import com.alex.springsecurity.model.Usuario;
 import com.alex.springsecurity.repository.PerfilRepository;
 import com.alex.springsecurity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +22,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
-        if (user == null) {
+        Usuario usuario = userRepo.findByUsername(username);
+        if (usuario == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new CustomUserDetails(user);
+        return new CustomUserDetails(usuario);
     }
 
     public void asignarRolAUsuario(String username, int idPerfil) {
-        User user = userRepo.findByUsername(username);
+        Usuario usuario = userRepo.findByUsername(username);
         Perfil perfil = perfilRepo.findById(idPerfil).orElseThrow(); // Asegúrate de tener un PerfilRepository
-        user.getPerfiles().add(perfil);
-        userRepo.save(user);
+        usuario.getPerfiles().add(perfil);
+        userRepo.save(usuario);
     }
 
 }
