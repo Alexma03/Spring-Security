@@ -64,6 +64,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/registro").permitAll()
                         .requestMatchers("/perfiles/**").hasRole("ADMON")
                         .requestMatchers("/cliente/**").hasRole("CLIENTE")
+                        .requestMatchers("/reservas/**").hasRole("CLIENTE")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login ->

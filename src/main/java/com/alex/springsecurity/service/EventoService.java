@@ -1,6 +1,7 @@
 package com.alex.springsecurity.service;
 
 import com.alex.springsecurity.model.Evento;
+import com.alex.springsecurity.model.Tipo;
 import com.alex.springsecurity.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,12 @@ public class EventoService {
             actualizarEventoTerminado(evento);
         }
         return evento;
+    }
+
+    public List<Evento> findByTipo(Tipo tipo) {
+        List<Evento> eventos = eventoRepository.findByTipo(tipo);
+        actualizarEventosTerminados(eventos);
+        return eventos;
     }
 
     public void save(Evento evento) {

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}">
+    <meta charset="UTF-8">
+    <title>Gestor de Eventos</title>
+</head>
+<body>
+
+<nav th:replace="~{layout :: navbar}"></nav>
+
+<section class="container text-center">
+    <div class="my-4">
+        <h1 class="mb-4">Listado de Reservas</h1>
+    </div>
+
+    <table class="table">
+        <thead class="table-light">
+        <tr>
+            <th scope="col">Evento</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio Venta</th>
+            <th scope="col">Observaciones</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reserva : ${reservas}">
+            <td th:text="${reserva.evento.nombre}">Nombre del Evento</td>
+            <td th:text="${reserva.cantidad}">Cantidad</td>
+            <td th:text="${reserva.precioVenta}">Precio Venta</td>
+            <td th:text="${reserva.observaciones}">Observaciones</td>
+            <td>
+                <a th:href="@{/reservas/cancelar/{id}(id=${reserva.idReserva})}" class="btn btn-outline-danger">Cancelar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<footer th:replace="~{layout :: footer}"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

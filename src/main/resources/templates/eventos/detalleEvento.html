@@ -73,7 +73,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="cantidad" class="detail-label">Cantidad</label>
-                        <form th:action="@{/reserva/reservar/{id}(id=${evento.idEvento})}" method="post">
+                        <form th:action="@{/reservas/reservar/{id}(id=${evento.idEvento})}" method="post">
                             <select class="form-select" id="cantidad" name="cantidad">
                                 <option th:each="i : ${#numbers.sequence(1, maxReservasDisponibles)}" th:value="${i}" th:text="${i}"></option>
                             </select>

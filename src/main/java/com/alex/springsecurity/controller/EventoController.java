@@ -1,6 +1,7 @@
 package com.alex.springsecurity.controller;
 
 import com.alex.springsecurity.model.Evento;
+import com.alex.springsecurity.model.Tipo;
 import com.alex.springsecurity.repository.TipoRepository;
 import com.alex.springsecurity.service.EventoService;
 import com.alex.springsecurity.service.ReservaService;
@@ -69,6 +70,15 @@ public class EventoController {
         List<Evento> eventos = eventoService.findByEstado("TERMINADO");
         model.addAttribute("eventos", eventos);
         return "eventos/eventosTerminados";
+    }
+
+    // Filtrar eventos por tipo
+    @GetMapping("/tipo/{id}")
+    public String listarEventosPorTipo(@PathVariable int id, Model model) {
+        Tipo tipo = tipoRepo.findById(id).orElse(null);
+        List<Evento> eventos = eventoService.findByTipo(tipo);
+        model.addAttribute("eventos", eventos);
+        return "index";
     }
 
     @GetMapping("/alta")

@@ -9,15 +9,14 @@ import com.alex.springsecurity.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
-@RequestMapping("/reserva")
+@RequestMapping("/reservas")
 public class ReservaController {
 
     @Autowired
@@ -29,14 +28,28 @@ public class ReservaController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/reservar/{id}")
-    public String reservarEvento(@PathVariable int id, @RequestParam int cantidad, Authentication authentication) {
-        Evento evento = eventoService.findById(id);
+    @GetMapping("/misReservas")
+    public String listarReservas(Authentication authentication, Model model) {
+        Usuario usuario = usuarioService.findByUsername(authentication.getName());
+        List<Reserva> reservas = reservaService.findByUsuario(usuario);
+        model.addAttribute("reservas", reservas);
+        return "reservas/misReservas";
+    }
+
+    @GetMapping("/cancelar/{reserva_id}")
+    public String cancelarReserva(@PathVariable int reserva_id) {
+        reservaService.deleteById(reserva_id);
+        return "redirect:/reservas/misReservas";
+    }
+
+    @PostMapping("/reservar/{user_id}")
+    public String reservarEvento(@PathVariable int user_id, @RequestParam int cantidad, Authentication authentication) {
+        Evento evento = eventoService.findById(user_id);
         Usuario usuario = usuarioService.findByUsername(authentication.getName());
 
         int totalReservas = reservaService.countByEvento(evento);
         if (totalReservas + cantidad > 10) {
-            return "redirect:/eventos/detalle/" + id + "?error=exceeded";
+            return "redirect:/eventos/detalle/" + user_id + "?error=exceeded";
         }
 
         Reserva reserva = new Reserva();
