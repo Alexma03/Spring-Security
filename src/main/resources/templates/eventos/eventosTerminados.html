@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{layout :: head}">
     <meta charset="UTF-8">
     <title>Eventos Terminados</title>
@@ -33,8 +33,8 @@
             <td th:text="${evento.precio}">Precio</td>
             <td th:text="${evento.estado}">Estado</td>
             <td>
-                <a th:href="@{/eventos/editar/{id}(id=${evento.idEvento})}" class="btn btn-secondary">Editar</a>
-                <a th:href="@{/eventos/eliminar/{id}(id=${evento.idEvento})}" class="btn btn-danger">Eliminar</a>
+                <a th:href="@{/eventos/editar/{id}(id=${evento.idEvento})}" class="btn btn-secondary" sec:authorize="hasRole('ADMON')">Editar</a>
+                <a th:href="@{/eventos/eliminar/{id}(id=${evento.idEvento})}" class="btn btn-danger" sec:authorize="hasRole('ADMON')">Eliminar</a>
                 <a th:href="@{/eventos/detalle/{id}(id=${evento.idEvento})}" class="btn btn-info">Ver Detalle</a>
             </td>
         </tr>

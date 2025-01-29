@@ -39,6 +39,8 @@ public class EventoController {
             int reservasRestantesEvento = evento.getAforoMaximo() - numReservas;
             reservasRestantes.put(evento.getIdEvento(), reservasRestantesEvento);
         }
+        String titulo = "Listado de eventos";
+        model.addAttribute("titulo", titulo);
         model.addAttribute("eventos", eventos);
         model.addAttribute("reservasRestantes", reservasRestantes);
         return "index";
@@ -47,37 +49,82 @@ public class EventoController {
     @GetMapping("/activos")
     public String listarEventosActivos(Model model) {
         List<Evento> eventos = eventoService.findByEstado("ACTIVO");
+        Map<Integer, Integer> reservasRestantes = new HashMap<>();
+        for (Evento evento : eventos) {
+            int numReservas = reservaService.countByEvento(evento);
+            int reservasRestantesEvento = evento.getAforoMaximo() - numReservas;
+            reservasRestantes.put(evento.getIdEvento(), reservasRestantesEvento);
+        }
+        String titulo = "Eventos Activos";
+        model.addAttribute("titulo", titulo);
         model.addAttribute("eventos", eventos);
+        model.addAttribute("reservasRestantes", reservasRestantes);
         return "index";
     }
 
     @GetMapping("/destacados")
     public String listarEventosDestacados(Model model) {
         List<Evento> eventos = eventoService.findByDestacado("S");
+        Map<Integer, Integer> reservasRestantes = new HashMap<>();
+        for (Evento evento : eventos) {
+            int numReservas = reservaService.countByEvento(evento);
+            int reservasRestantesEvento = evento.getAforoMaximo() - numReservas;
+            reservasRestantes.put(evento.getIdEvento(), reservasRestantesEvento);
+        }
+        String titulo = "Eventos Destacados";
+        model.addAttribute("titulo", titulo);
         model.addAttribute("eventos", eventos);
-        return "eventos/eventosDestacados";
+        model.addAttribute("reservasRestantes", reservasRestantes);
+        return "index";
     }
 
     @GetMapping("/cancelados")
     public String listarEventosCancelados(Model model) {
         List<Evento> eventos = eventoService.findByEstado("CANCELADO");
+        Map<Integer, Integer> reservasRestantes = new HashMap<>();
+        for (Evento evento : eventos) {
+            int numReservas = reservaService.countByEvento(evento);
+            int reservasRestantesEvento = evento.getAforoMaximo() - numReservas;
+            reservasRestantes.put(evento.getIdEvento(), reservasRestantesEvento);
+        }
+        String titulo = "Eventos Cancelados";
+        model.addAttribute("titulo", titulo);
         model.addAttribute("eventos", eventos);
-        return "eventos/eventosCancelados";
+        model.addAttribute("reservasRestantes", reservasRestantes);
+        return "index";
     }
 
     @GetMapping("/terminados")
     public String listarEventosTerminados(Model model) {
         List<Evento> eventos = eventoService.findByEstado("TERMINADO");
+        Map<Integer, Integer> reservasRestantes = new HashMap<>();
+        for (Evento evento : eventos) {
+            int numReservas = reservaService.countByEvento(evento);
+            int reservasRestantesEvento = evento.getAforoMaximo() - numReservas;
+            reservasRestantes.put(evento.getIdEvento(), reservasRestantesEvento);
+        }
+        String titulo = "Eventos Terminados";
+        model.addAttribute("titulo", titulo);
         model.addAttribute("eventos", eventos);
-        return "eventos/eventosTerminados";
+        model.addAttribute("reservasRestantes", reservasRestantes);
+        return "index";
     }
 
-    // Filtrar eventos por tipo
     @GetMapping("/tipo/{id}")
     public String listarEventosPorTipo(@PathVariable int id, Model model) {
         Tipo tipo = tipoRepo.findById(id).orElse(null);
         List<Evento> eventos = eventoService.findByTipo(tipo);
+        Map<Integer, Integer> reservasRestantes = new HashMap<>();
+        for (Evento evento : eventos) {
+            int numReservas = reservaService.countByEvento(evento);
+            int reservasRestantesEvento = evento.getAforoMaximo() - numReservas;
+            reservasRestantes.put(evento.getIdEvento(), reservasRestantesEvento);
+        }
+        assert tipo != null;
+        String titulo = "Eventos de " + tipo.getNombre();
+        model.addAttribute("titulo", titulo);
         model.addAttribute("eventos", eventos);
+        model.addAttribute("reservasRestantes", reservasRestantes);
         return "index";
     }
 

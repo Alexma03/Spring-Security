@@ -85,14 +85,6 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-3">
-                <a th:href="@{/eventos/editar/{id}(id=${evento.idEvento})}" class="btn btn-secondary">Editar</a>
-                <a th:if="${evento.estado == 'CANCELADO'}" th:href="@{/eventos/activar/{id}(id=${evento.idEvento})}"
-                   class="btn btn-success">Activar</a>
-                <a th:if="${evento.estado != 'CANCELADO'}" th:href="@{/eventos/cancelar/{id}(id=${evento.idEvento})}"
-                   class="btn btn-outline-danger">Cancelar</a>
-                <a th:href="@{/eventos/eliminar/{id}(id=${evento.idEvento})}" class="btn btn-danger">Eliminar</a>
-            </div>
         </div>
     </div>
 </section>
