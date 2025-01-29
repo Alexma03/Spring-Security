@@ -26,4 +26,9 @@ public class HomeController {
         model.addAttribute("eventos", eventos);
         return "index";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }
