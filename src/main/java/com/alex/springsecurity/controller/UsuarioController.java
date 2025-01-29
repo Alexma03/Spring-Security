@@ -28,14 +28,6 @@ public class UsuarioController {
         return "usuario/usuarios";
     }
 
-    @GetMapping("/registro")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("usuario", new Usuario());
-
-        return "signup_form";
-    }
-
-
     @PostMapping("/procesar_registro")
     public String processRegister(Usuario usuario) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

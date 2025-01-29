@@ -31,4 +31,11 @@ public class HomeController {
     public String login() {
         return "login";
     }
+
+    @GetMapping("/registro")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("usuario", new Usuario());
+
+        return "signup_form";
+    }
 }
