@@ -25,7 +25,7 @@
             <th scope="col">Fecha de Fin</th>
             <th scope="col">Precio</th>
             <th scope="col">Estado</th>
-            <th scope="col">Destacado</th>
+            <th scope="col">Reservas Restantes</th>
             <th scope="col">Acciones</th>
         </tr>
         </thead>
@@ -37,7 +37,7 @@
             <td th:text="${#dates.format(evento.fechaFin, 'yyyy-MM-dd')}">Fecha de Fin</td>
             <td th:text="${evento.precio}">Precio</td>
             <td th:text="${evento.estado}">Estado</td>
-            <td th:text="${evento.destacado}">Destacado</td>
+            <td th:text="${reservasRestantes[evento.idEvento]}">Reservas Restantes</td>
             <td>
                 <a th:href="@{/eventos/editar/{id}(id=${evento.idEvento})}" class="btn btn-secondary">Editar</a>
                 <a th:if="${evento.estado == 'CANCELADO'}" th:href="@{/eventos/activar/{id}(id=${evento.idEvento})}"
@@ -46,7 +46,6 @@
                    class="btn btn-outline-danger">Cancelar</a>
                 <a th:href="@{/eventos/eliminar/{id}(id=${evento.idEvento})}" class="btn btn-danger">Eliminar</a>
                 <a th:href="@{/eventos/detalle/{id}(id=${evento.idEvento})}" class="btn btn-info">Ver Detalle</a>
-
             </td>
         </tr>
         </tbody>

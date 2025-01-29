@@ -1,7 +1,7 @@
 package com.alex.springsecurity.controller;
 
 import com.alex.springsecurity.model.Usuario;
-import com.alex.springsecurity.repository.UserRepository;
+import com.alex.springsecurity.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +18,7 @@ import java.util.List;
 public class UsuarioController {
 
     @Autowired
-    private UserRepository userRepo;
+    private UsuarioRepository userRepo;
 
     @GetMapping("")
     public String listUsers(Model model, HttpServletRequest request) {

@@ -4,7 +4,7 @@ import com.alex.springsecurity.config.CustomUserDetails;
 import com.alex.springsecurity.model.Perfil;
 import com.alex.springsecurity.model.Usuario;
 import com.alex.springsecurity.repository.PerfilRepository;
-import com.alex.springsecurity.repository.UserRepository;
+import com.alex.springsecurity.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepo;
+    private UsuarioRepository userRepo;
 
     @Autowired
     private PerfilRepository perfilRepo;

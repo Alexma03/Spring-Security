@@ -3,6 +3,7 @@ package com.alex.springsecurity.controller;
 import com.alex.springsecurity.model.Evento;
 import com.alex.springsecurity.repository.TipoRepository;
 import com.alex.springsecurity.service.EventoService;
+import com.alex.springsecurity.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/eventos")
@@ -21,12 +24,22 @@ public class EventoController {
     private EventoService eventoService;
 
     @Autowired
+    private ReservaService reservaService;
+
+    @Autowired
     private TipoRepository tipoRepo;
 
     @GetMapping("")
     public String listarEventos(Model model) {
         List<Evento> eventos = eventoService.findAll();
+        Map<Integer, Integer> reservasRestantes = new HashMap<>();
+        for (Evento evento : eventos) {
+            int numReservas = reservaService.countByEvento(evento);
+            int reservasRestantesEvento = evento.getAforoMaximo() - numReservas;
+            reservasRestantes.put(evento.getIdEvento(), reservasRestantesEvento);
+        }
         model.addAttribute("eventos", eventos);
+        model.addAttribute("reservasRestantes", reservasRestantes);
         return "index";
     }
 
@@ -110,7 +123,11 @@ public class EventoController {
     @GetMapping("/detalle/{id}")
     public String mostrarDetalleEvento(@PathVariable int id, Model model) {
         Evento evento = eventoService.findById(id);
+        int reservas = reservaService.countByEvento(evento);
+        int maxReservasDisponibles = evento.getAforoMaximo() - reservas;
         model.addAttribute("evento", evento);
+        model.addAttribute("reservas", reservas);
+        model.addAttribute("maxReservasDisponibles", maxReservasDisponibles);
         return "eventos/detalleEvento";
     }
 

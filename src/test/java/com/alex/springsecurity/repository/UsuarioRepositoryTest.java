@@ -28,7 +28,7 @@ public class UsuarioRepositoryTest {
     private EntityManager entityManager;
 
     @Autowired
-    private UserRepository repo;
+    private UsuarioRepository repo;
 
     @Test
     public void testCreateAdminUser() {
