@@ -22,7 +22,6 @@ public class Perfil implements Serializable {
 
     private String nombre;
 
-
     public Perfil() {
     }
 
@@ -42,10 +41,8 @@ public class Perfil implements Serializable {
         this.nombre = nombre;
     }
 
-
     @Override
     public String toString() {
-        return "Perfile [idPerfil=" + idPerfil + ", nombre=" + nombre + "]";
+        return "Perfil [idPerfil=" + idPerfil + ", nombre=" + nombre + "]";
     }
-
 }

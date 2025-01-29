@@ -24,14 +24,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = userRepo.findByUsername(username);
         if (usuario == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("Usuario no encontrado");
         }
         return new CustomUserDetails(usuario);
     }
 
     public void asignarRolAUsuario(String username, int idPerfil) {
         Usuario usuario = userRepo.findByUsername(username);
-        Perfil perfil = perfilRepo.findById(idPerfil).orElseThrow(); // Asegúrate de tener un PerfilRepository
+        Perfil perfil = perfilRepo.findById(idPerfil).orElseThrow();
         usuario.getPerfiles().add(perfil);
         userRepo.save(usuario);
     }

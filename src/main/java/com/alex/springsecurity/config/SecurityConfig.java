@@ -60,9 +60,11 @@ public class SecurityConfig {
 
         http.authenticationProvider(authenticationProvider());
 
-        http.authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/login", "/registro").permitAll()
-                                .anyRequest().authenticated()
+        http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/registro").permitAll()
+                        .requestMatchers("/perfiles/**").hasRole("ADMON")
+                        .requestMatchers("/cliente/**").hasRole("CLIENTE")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(login ->
                         login.loginPage("/login")

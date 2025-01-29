@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class Usuario implements Serializable {
     private String direccion;
 
     //bi-directional many-to-many association to Perfile
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "usuario_perfiles"
             , joinColumns = {
