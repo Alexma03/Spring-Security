@@ -15,27 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-//    @Bean
-//    public UserDetailsService usersdetails() {
-//        List<UserDetails> users = List.of(
-//                User
-//                        .withUsername("alex")
-//                        .password(passwordEncoder().encode("alexPrueba"))
-//                        .roles("USERS")
-//                        .build(),
-//                User
-//                        .withUsername("user2")
-//                        .password(passwordEncoder().encode("user2"))
-//                        .roles("OPERATOR")
-//                        .build(),
-//                User
-//                        .withUsername("admin")
-//                        .password(passwordEncoder().encode("admin"))
-//                        .roles("USERS", "ADMIN")
-//                        .build());
-//        return new InMemoryUserDetailsManager(users);
-//    }
-
     @Bean
     UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();
@@ -61,7 +40,7 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/registro").permitAll()
+                        .requestMatchers("/login", "/registro", "/eventos/**", "/").permitAll()
                         .requestMatchers("/perfiles/**").hasRole("ADMON")
                         .requestMatchers("/cliente/**").hasRole("CLIENTE")
                         .requestMatchers("/reservas/**").hasRole("CLIENTE")

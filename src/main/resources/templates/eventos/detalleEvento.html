@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{layout :: head}">
     <meta charset="UTF-8">
     <title>Detalle del Evento</title>
@@ -71,7 +71,7 @@
                             <span th:text="${reservas}">0</span>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" sec:authorize="isAuthenticated()">
                         <label for="cantidad" class="detail-label">Cantidad</label>
                         <form th:action="@{/reservas/reservar/{id}(id=${evento.idEvento})}" method="post">
                             <select class="form-select" id="cantidad" name="cantidad">
