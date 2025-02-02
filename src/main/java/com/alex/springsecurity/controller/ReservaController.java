@@ -52,12 +52,14 @@ public class ReservaController {
             return "redirect:/eventos/detalle/" + user_id + "?error=exceeded";
         }
 
-        Reserva reserva = new Reserva();
-        reserva.setEvento(evento);
-        reserva.setUsuario(usuario);
-        reserva.setCantidad(cantidad);
-        reserva.setPrecioVenta(evento.getPrecio().multiply(BigDecimal.valueOf(cantidad)));
-        reservaService.save(reserva);
+        for (int i = 0; i < cantidad; i++) {
+            Reserva reserva = new Reserva();
+            reserva.setEvento(evento);
+            reserva.setUsuario(usuario);
+            reserva.setCantidad(1);
+            reserva.setPrecioVenta(evento.getPrecio());
+            reservaService.save(reserva);
+        }
 
         return "redirect:/";
     }

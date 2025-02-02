@@ -11,7 +11,7 @@
 <section class="container text-center">
     <div class="my-4">
         <h1 class="mb-4" th:text="${titulo}"></h1>
-        <a type="button" class="btn btn-primary" th:href="@{/eventos/alta}">
+        <a type="button" class="btn btn-primary" th:href="@{/eventos/alta}" sec:authorize="isAuthenticated()">
             Nuevo evento
         </a>
     </div>
