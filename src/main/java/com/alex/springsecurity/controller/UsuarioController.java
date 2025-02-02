@@ -33,6 +33,7 @@ public class UsuarioController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(usuario.getPassword());
         usuario.setPassword(encodedPassword);
+        usuario.setFechaRegistro(new java.util.Date());
 
         userRepo.save(usuario);
 

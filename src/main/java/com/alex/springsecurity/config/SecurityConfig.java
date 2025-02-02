@@ -40,7 +40,7 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/registro", "/eventos/**", "/").permitAll()
+                        .requestMatchers("/login", "/registro", "/eventos/**", "/", "/usuarios/procesar_registro", "/signup_form").permitAll()
                         .requestMatchers("/perfiles/**").hasRole("ADMON")
                         .requestMatchers("/cliente/**").hasRole("CLIENTE")
                         .requestMatchers("/reservas/**").hasRole("CLIENTE")

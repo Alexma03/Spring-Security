@@ -41,6 +41,7 @@ public class UsuarioRepositoryTest {
         usuario.setUsername("admin");
         usuario.setDireccion("");
         usuario.setEnabled(1);
+        usuario.setFechaRegistro(new java.util.Date());
 
         // Buscar el perfil de admin existente o crear uno nuevo
         Perfil adminPerfil = entityManager
@@ -55,8 +56,20 @@ public class UsuarioRepositoryTest {
                     return newPerfil;
                 });
 
-        // Asignar el perfil de admin al usuario
-        usuario.setPerfiles(List.of(adminPerfil));
+        // Buscar el perfil de cliente existente o crear uno nuevo
+        Perfil clientPerfil = entityManager
+                .createQuery("SELECT p FROM Perfil p WHERE p.nombre = :nombre", Perfil.class)
+                .setParameter("nombre", "ROLE_CLIENTE")
+                .getResultStream()
+                .findFirst()
+                .orElseGet(() -> {
+                    Perfil newPerfil = new Perfil();
+                    newPerfil.setNombre("ROLE_CLIENTE");
+                    entityManager.persist(newPerfil);
+                    return newPerfil;
+                });
+
+        usuario.setPerfiles(List.of(adminPerfil, clientPerfil));
 
         repo.save(usuario);
 
@@ -77,6 +90,7 @@ public class UsuarioRepositoryTest {
         usuario.setUsername("client");
         usuario.setDireccion("Client Street 123");
         usuario.setEnabled(1);
+        usuario.setFechaRegistro(new java.util.Date());
 
         // Buscar el perfil de cliente existente o crear uno nuevo
         Perfil clientPerfil = entityManager
